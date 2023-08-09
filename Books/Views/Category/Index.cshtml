@@ -1,44 +1,46 @@
-﻿@model IEnumerable<Books.Models.Book>
+﻿@model IEnumerable<Books.Models.Category>
 @{
-    ViewBag.Title = "Books";
+    ViewBag.Title = "Categories";
 }
-
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <h2 class="text-primary">Books</h2>
+            <h2 class="text-primary">Categories</h2>
             <hr />
-            <a href="@Url.Action("Create")" class="btn btn-primary"><i class="icofont-plus"></i> Add New</a>
+            <a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>
             <hr />
 
             <div class="alert alert-warning @(Model.Any() ? "d-none" : "")">
-                No Books Added Yet!
+                No Category Added Yet!
             </div>
 
             <table class="table @(Model.Any() ? "" : "d-none")">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Added On</th>
+                        <th>Name</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var book in Model)
+                    @foreach (var category in Model)
                     {
                         <tr>
-                            <td>@Html.ActionLink(book.Title, "Details", "Books", new { id = book.Id }, null)</td>
-                            <td>@book.Author</td>
-                            <td>@book.Category.Name</td>
-                            <td>@book.Description</td>
-                            <td>@book.AddedOn</td>
+                            <td>@Html.ActionLink(category.Name, "Details", "Category", new { id = category.Id }, null)</td>
                             <td>
-                                <a href="@Url.Action("Edit", "Books", new { id = book.Id })" class="btn btn-primary"><i class="icofont-pencil"></i> Edit</a>
-                                <a href="javascript:;" class="btn btn-danger js-delete" data-id="@book.Id"><i class="icofont-trash"></i> Delete</a>
+                                @if (category.IsActive)
+                                {
+                                    <i class="fa fa-check text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-times text-danger"></i>
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Category", new { id = category.Id })" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="javascript:;" class="btn btn-danger js-delete" data-id="@category.Id"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     }
@@ -68,7 +70,7 @@
                 var btn = $(this);
 
                 bootbox.confirm({
-                    message: 'Are you sure that you need to delete this book?',
+                    message: 'Are you sure that you need to delete this category?',
                     buttons: {
                         confirm: {
                             label: 'Yes',
@@ -82,7 +84,7 @@
                     callback: function (result) {
                         if (result) {
                             $.ajax({
-                                url: '/api/books/' + btn.data('id'),
+                                url: '/api/category/' + btn.data('id'),
                                 method: 'DELETE',
                                 success: function () {
 
@@ -97,7 +99,7 @@
                                             this.remove();
                                         });
 
-                                    toastr.success('Book Deleted!')
+                                    toastr.success('Category Deleted!')
                                 },
                                 error: function () {
                                     toastr.error('Something went wrong!')

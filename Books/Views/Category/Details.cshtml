@@ -1,0 +1,40 @@
+﻿@model Books.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-secondary text-white font-weight-bold">
+                    Category Details
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Name:</strong> @Model.Name
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Status:</strong>
+                            @if (Model.IsActive)
+                            {
+                                <i class="fa fa-check text-success"></i>
+                                <span class="text-success ml-2">Active</span>
+                            }
+                            else
+                            {
+                                <i class="fa fa-times text-danger"></i>
+                                <span class="text-danger ml-2">Inactive</span>
+                            }
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="@Url.Action("Edit", "Category", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

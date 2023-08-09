@@ -1,15 +1,31 @@
 ﻿@model Books.Models.Book
+
 @{
     ViewBag.Title = "Details";
 }
 
-<ul class="list-group">
-    <li class="list-group-item bg-secondary text-white font-weight-bold d-flex justify-content-between align-items-center">
-        <span>@Model.Title </span>
-        <a href="@Url.Action("Edit", "Books", new {id = Model.Id})" class="btn btn-primary">Edit</a>
-    </li>
-    <li class="list-group-item">@Model.Author</li>
-    <li class="list-group-item">@Model.Category.Name</li>
-    <li class="list-group-item">@Model.Description</li>
-    <li class="list-group-item">@Model.AddedOn</li>
-</ul>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-secondary text-white font-weight-bold">
+                    Book Details
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><strong>Title:</strong> @Model.Title</span>
+                        </li>
+                        <li class="list-group-item"><strong>Author:</strong> @Model.Author</li>
+                        <li class="list-group-item"><strong>Category:</strong> @Model.Category.Name</li>
+                        <li class="list-group-item"><strong>Description:</strong> @Model.Description</li>
+                        <li class="list-group-item"><strong>Added On:</strong> @Model.AddedOn</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="@Url.Action("Edit", "Books", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
